@@ -13,15 +13,33 @@ class Bottles
         if n == 0
           return "No more bottles of beer on the wall, no more bottles of beer.\n" \
           "Go to the store and buy some more, 99 bottles of beer on the wall.\n"
-        elsif n == 1
-          return"1 bottle of beer on the wall, 1 bottle of beer.\n" \
-          "Take it down and pass it around, no more bottles of beer on the wall.\n"
-        elsif n == 2
-          return "2 bottles of beer on the wall, 2 bottles of beer.\n" \
-          "Take one down and pass it around, 1 bottle of beer on the wall.\n"
         end
         
-          return "#{n} bottles of beer on the wall, #{n} bottles of beer.\n" \
-          "Take one down and pass it around, #{n - 1} bottles of beer on the wall.\n"        
+        return "#{n} #{container(n)} of beer on the wall, #{n} #{container(n)} of beer.\n" \
+        "Take #{pronoun(n)} down and pass it around, #{quantity(n - 1)} #{container(n - 1)} of beer on the wall.\n"        
+    end
+
+    def container(number)
+        if number == 1
+          "bottle"
+        else
+          "bottles"
+        end
+    end
+    
+    def pronoun(number)
+      if(number == 1)
+        "it"
+      else
+        "one"
+      end
+    end
+
+    def quantity(number)
+        if number == 0
+          "no more"
+        else
+          number.to_s
+        end
     end
 end
