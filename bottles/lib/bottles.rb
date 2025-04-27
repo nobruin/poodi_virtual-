@@ -10,48 +10,62 @@ class Bottles
     end
 
     def verse(n)
-        return "#{quantity(n).capitalize} #{container(n)} of beer on the wall, " + 
-               "#{quantity(n)} #{container(n)} of beer.\n"+
-               action(n) + 
-               "#{quantity(successor(n))} #{container(successor(n))} of beer on the wall.\n"        
-    end
+        bottle_number = BottleNumber.new(n)
+        next_bottle_number = BottleNumber.new(bottle_number.successor)
 
-    def container(number)
-        if number == 1
-          return "bottle"
-        end 
-        
-        "bottles"
+        return "#{bottle_number} of beer on the wall, ".capitalize + 
+               "#{bottle_number} of beer.\n"+
+                  bottle_number.action + 
+               "#{next_bottle_number} of beer on the wall.\n"        
     end
+end
+
+class BottleNumber
+  attr_accessor :number
+  def initialize(number)
+    @number = number
+  end 
+
+  def to_s
+    "#{quantity} #{container}"
+  end
+
+  def container
+    if self.number == 1
+      return "bottle"
+    end 
     
-    def pronoun(number)
-      if(number == 1)
-        return "it"
-      end  
+    "bottles"
+  end
+
+  def pronoun
+    if(number == 1)
+      return "it"
+    end  
+  
+    "one"
+  end
+
+  def quantity
+      if number == 0
+        return "no more"
+      end
       
-      "one"
-    end
+      return number.to_s
+  end
 
-    def quantity(number)
-        if number == 0
-          return "no more"
-        end
-        
-        return number.to_s
-    end
+  def action
+      if number == 0
+      return "Go to the store and buy some more, "
+      end 
+      "Take #{pronoun} down and pass it around, "   
+  end
 
-    def action(number)
-        if number == 0
-        return "Go to the store and buy some more, "
-        end 
-        "Take #{pronoun(number)} down and pass it around, "   
-    end
+  def successor
+      if number == 0
+        return 99
+      end
 
-    def successor(number)
-        if number == 0
-          return 99
-        end
-
-        return number - 1
-    end
+      return number - 1
+  end
 end
